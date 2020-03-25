@@ -6,11 +6,6 @@ body {
     align-items: center;
 }
 
-hr {
-    border: 0.5px solid #d8d8d8;
-    width: 100%;
-}
-
 /* .d-none {
     display: none;
 } */
@@ -21,26 +16,26 @@ hr {
     flex-direction: column;
 }
 
-.todo-list {
+.todoList {
     width: 100%;
     list-style: none;
     padding: 0;
 }
 
-.todo-item {
+.todoItem {
     display: flex;
     align-items: center;
     padding: 16px 0;
     border-bottom: 1px solid #d8d8d8;
 }
-.todo-item .todo-name {
+.todoItem .todoName {
     display: block;
     padding: 4px;
     margin: 0 16px;
     flex-grow: 1;
 }
 
-.todo-item .edit-input {
+.todoItem .editInput {
     display: none;
     padding: 4px;
     margin: 0 16px;
@@ -49,29 +44,29 @@ hr {
     flex-grow: 1;
 }
 
-.todo-item .todo-name.done {
+.todoItem .todoName.done {
     text-decoration: line-through;
 }
 
-.todo-item button {
+.todoItem button {
     background: none;
     border: 0;
     color: #c8c8c8;
 }
 
-.todo-item button {
+.todoItem button {
     margin-left: 8px;
 }
 
-.todo-item .save-btn {
+.todoItem .saveBtn {
     display: none;
 }
 
-.new-task-container {
+.taskContainer{
     display: flex;
     margin: 8px 0;
 }
-.new-task-container input {
+.taskContainer input {
     padding: 4px;
     margin-right: 16px;
     border-radius: 4px;
@@ -79,17 +74,17 @@ hr {
     flex-grow: 1;
 }
 
-.new-task-container button {
+.taskContainer button {
     background: none;
     border: 0;
     color: #c8c8c8;
 }
 
 /* Edit Mode */
-.todo-item.edit-mode .todo-name, .todo-item.edit-mode .edit-btn {
+.todoItem.edit-mode .todoName, .todoItem.edit-mode .editBtn {
     display: none;
 }
 
-.todo-item.edit-mode .edit-input, .todo-item.edit-mode .save-btn {
+.todoItem.edit-mode .editInput, .todoItem.edit-mode .saveBtn {
     display: inline-block;
 }

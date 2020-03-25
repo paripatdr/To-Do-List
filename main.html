@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>DemoTodoList</title>
-  <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>ToDo-List</title>
 </head>
 <body>
-  <div class="container">
-    <h3>Todo-List</h3>
-    <hr>
-    <ul class="todo-list" id="todoList">
-      <li class="todo-item">
-        <input type="checkbox" class="checkbox">
-        <p class="todo-name">Test</p>
-        <input type="text" class="edit-input">
-        <button class="edit-btn">Edit</button>
-        <button class="save-btn">Save</button>
-        <button class="delete-btn">Delete</button>
-      </li>
-    </ul>
+    <div class="container">
+     <h3>Todo-List</h3>
 
+     <ul class="todoList" id="List">
+       <li class="todoItem">
+        <input type="checkbox" class="checkBox">
+          <p class="todoName">test</p>
+          <input type="text" class="editInput">
+          <button class="editBtn">Edit</button>
+          <button class="saveBtn">Save</button>
+          <button class="deleteBtn">Delete</button>
+       </li>
+     </ul>
+     
     <h3>Add Task</h3>
-    <hr>
-    <div class="new-task-container">
-      <input type="text" id="createTaskInput"> 
-      <button  onclick="createTask()">Add</button>
-      
+    <div class="taskContainer">
+        <input type="text" id="createTaskInput">
+        <button id="addBtn">Add</button>
     </div>
-  </div>
+    </div>
+
+    <script src="main.js"></script>
+     
 </body>
-<script src="main.js"></script>
 </html>

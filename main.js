@@ -1,88 +1,100 @@
-var deleteTask = function() {
-    var parentEl = this.parentNode;
-    parentEl.parentNode.removeChild(parentEl);   //remove ul >> li
-    localStorage.clear(parentEl);
-}
-var MaskAddDone = function () {
-    var parentEl = this.parentNode;
-    var pEl = parentEl.getElementsByClassName('todo-name')[0];
-    // console.log(pEl);
-    if (this.checked) {
-        pEl.classList.add('done');
-    } else {
-        pEl.classList.remove('done');
+let topics = [];
+const add = (ev) =>{
+    ev.preventDefault();
+    let topic = {
+        title: document.getElementById('createTaskInput').value
     }
+    topics.push(topic);
+    localStorage.setItem('TodoList', JSON.stringify(topics));
+    createTask();
+    
 }
-var switchToEditMode = function () {
-    var parentEl = this.parentNode;
-    var pEl = parentEl.getElementsByClassName('todo-name')[0];
-    var inputEl = parentEl.getElementsByClassName('edit-input')[0];
-    inputEl.value = pEl.innerHTML;
-    parentEl.classList.add('edit-mode');  
-}
-var saveTask = function () {
-    var parentEl = this.parentNode;
-    var pEl = parentEl.getElementsByClassName('todo-name')[0];
-    var inputEl = parentEl.getElementsByClassName('edit-input')[0];
+    document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('addBtn').addEventListener('click', add);
+    });
 
-    parentEl.classList.remove('edit-mode');
-    if (inputEl.value.trim() == '') {
+
+
+    var deleteTask = function() {
+        var parentEl = this.parentNode;
+        parentEl.parentNode.removeChild(parentEl);   //remove ul >> li
+        localStorage.clear(parentEl);
+    }
+    var MaskAddDone = function () {
+        var parentEl = this.parentNode;
+        var pEl = parentEl.getElementsByClassName('todoName')[0];
+        // console.log(pEl);
+        if (this.checked) {
+            pEl.classList.add('done');
+        } else {
+            pEl.classList.remove('done');
+        }
+    }
+    var switchToEditMode = function () {
+        var parentEl = this.parentNode;
+        var pEl = parentEl.getElementsByClassName('todoName')[0];
+        var inputEl = parentEl.getElementsByClassName('editInput')[0];
+        inputEl.value = pEl.innerHTML;
+        parentEl.classList.add('edit-mode');  
+    }
+    var saveTask = function () {
+        var parentEl = this.parentNode;
+        var pEl = parentEl.getElementsByClassName('todoName')[0];
+        var inputEl = parentEl.getElementsByClassName('editInput')[0];
+    
+        parentEl.classList.remove('edit-mode');
+        if (inputEl.value.trim() == '') {
+            return;
+        }
+        
+        pEl.innerHTML = inputEl.value.trim();
+        //parentEl.classList.remove('edit-mode');
+    
+    }
+    
+
+function createTask(){
+    var inputEl = document.getElementById('createTaskInput');
+    var todoName = inputEl.value.trim(); 
+
+    if(todoName == ''){
         return;
     }
-    
-    pEl.innerHTML = inputEl.value.trim();
-    //parentEl.classList.remove('edit-mode');
-
-}
-
-function createTask() {
-    var inputEl = document.getElementById('createTaskInput');
-    var todoName = inputEl.value.trim();  //cut spacebar
-
-    let topics = [];    
-    topics.push(todoName);
-    localStorage.setItem('TodoList',JSON.stringify(topics));
-     
-    if (todoName == '') {
-        return;     //return out
-    }
-
-    
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.classList.add('checkbox');
+    checkbox.classList.add('checkBox');
     checkbox.onchange = MaskAddDone;
      
 
     var p = document.createElement('p');
-    p.classList.add('todo-name');
+    p.classList.add('todoName');
     p.innerHTML = todoName;
 
     var editInput = document.createElement('input');
     editInput.type = 'text';
-    editInput.classList.add('edit-input');
+    editInput.classList.add('editInput');
 
 
     var editBtn = document.createElement('button');
-    editBtn.classList.add('edit-btn');
+    editBtn.classList.add('editBtn');
     editBtn.innerHTML = 'Edit';
     editBtn.onclick = switchToEditMode;
     
 
     var saveBtn = document.createElement('button');
-    saveBtn.classList.add('save-btn');
+    saveBtn.classList.add('saveBtn');
     saveBtn.innerHTML = 'Save';
     saveBtn.onclick = saveTask;
 
     var deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('delete-btn');
+    deleteBtn.classList.add('deleteBtn');
     deleteBtn.innerHTML = 'Delete';
     deleteBtn.onclick = deleteTask;
    
 
 
     var itemEl = document.createElement('li');
-    itemEl.classList.add('todo-item');
+    itemEl.classList.add('todoItem');
 
     itemEl.appendChild(checkbox);
     itemEl.appendChild(p);
@@ -92,10 +104,16 @@ function createTask() {
     itemEl.appendChild(deleteBtn);
 
 
-    var parentListEl = document.getElementById('todoList');
+    var parentListEl = document.getElementById('List');
     parentListEl.appendChild(itemEl);
 
     inputEl.value = '';
 
 
 }
+
+
+
+
+
+

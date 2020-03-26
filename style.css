@@ -7,10 +7,6 @@ body {
     font-family: sans-serif;
 }
 
-/* .d-none {
-    display: none;
-} */
-
 .container {
     display: flex;
     width: 40rem;
@@ -37,9 +33,12 @@ body {
      background-size: cover;
      border-bottom: 0.4rem solid white;
      border-radius: 0.2rem;
-     
-
  }
+ .header h3{
+     
+ }
+
+ 
 .todoList {
     width: 100%;
     list-style: none;
@@ -74,7 +73,7 @@ body {
 }
 
 .todoItem .todoName.done {
-    text-decoration: line-through;
+    text-decoration:  line-through black;
 }
 
 .todoItem button {
@@ -106,10 +105,8 @@ button.editBtn:hover, button.deleteBtn:hover , button.saveBtn:hover ,button#addB
     background-color: #A3CB38;
 
 }
-
 .todoItem .saveBtn {
     display: none;
-
 }
 .taskContainer{
     display: flex;
@@ -135,9 +132,15 @@ button.editBtn:hover, button.deleteBtn:hover , button.saveBtn:hover ,button#addB
     background-color: #009432;
 }
 
+button#clearAll{
+    background-color: #c0392b;
+    margin-left: 0.5rem;
+}
+
+
 /* Edit Mode */
 .todoItem.edit-mode .todoName, .todoItem.edit-mode .editBtn {
-    display: none;
+    display: none;  
     
 }
 

@@ -1,9 +1,10 @@
 body {
     display: flex;
     height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     justify-content: center;
     align-items: center;
+    background: radial-gradient(ellipse farthest-corner at center top, #e3a377 40% ,#894c3e  80%);
+    font-family: sans-serif;
 }
 
 /* .d-none {
@@ -12,36 +13,64 @@ body {
 
 .container {
     display: flex;
-    width: 400px;
+    width: 40rem;
     flex-direction: column;
-}
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 0.4rem solid white;
+    box-shadow: 0.2rem 0.2rem 0.5rem  #dfe6e9;
+    border-radius: 0.5rem;
 
+    
+}
+.container h3{
+    text-shadow: black 0.1em 0.5em 0.4em;
+    margin-left: 0.8rem;
+    color: white;
+}
+ .header{
+     display: flex;
+     height: 10rem;
+     background-image: url(img/table1.jpg);
+     background-repeat: no-repeat;
+     background-size: cover;
+     border-bottom: 0.4rem solid white;
+     border-radius: 0.2rem;
+     
+
+ }
 .todoList {
     width: 100%;
     list-style: none;
     padding: 0;
+    
 }
 
 .todoItem {
     display: flex;
     align-items: center;
-    padding: 16px 0;
-    border-bottom: 1px solid #d8d8d8;
+    padding: 1rem 0;
+    border-bottom: 0.1rem solid #d8d8d8;
 }
+
 .todoItem .todoName {
     display: block;
-    padding: 4px;
-    margin: 0 16px;
+    padding: 0.15rem;
+    margin: 0 2rem;
     flex-grow: 1;
+    font-size: 1rem;
 }
 
 .todoItem .editInput {
     display: none;
-    padding: 4px;
-    margin: 0 16px;
-    border-radius: 4px;
+    padding: 0.4rem;
+    margin: 0 0.5rem;
+    border-radius: 1rem;
     border: 1px solid #d8d8d8;
+    color: black;
     flex-grow: 1;
+    
 }
 
 .todoItem .todoName.done {
@@ -55,36 +84,80 @@ body {
 }
 
 .todoItem button {
-    margin-left: 8px;
+    margin-left:0.5rem;
+    border: 0.1rem solid white;
+    color: black;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+button.editBtn:hover, button.deleteBtn:hover , button.saveBtn:hover ,button#addBtn:hover{
+    opacity: 0.7;
+}
+.todoItem button.deleteBtn{
+    background-color: red;
+}
+.todoItem button.editBtn{
+    background-color: #F79F1F;
+}
+.todoItem button.saveBtn{
+    background-color: #A3CB38;
+
 }
 
 .todoItem .saveBtn {
     display: none;
-}
 
+}
 .taskContainer{
     display: flex;
-    margin: 8px 0;
+    margin: 0.5rem 0.5rem;
 }
 .taskContainer input {
-    padding: 4px;
-    margin-right: 16px;
-    border-radius: 4px;
+    padding: 0.4rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
     border: 1px solid #d8d8d8;
     flex-grow: 1;
 }
 
 .taskContainer button {
     background: none;
-    border: 0;
-    color: #c8c8c8;
+    border: 0.1rem solid white;
+    border-radius: 0.5rem;
+    color: black;
+    cursor: pointer;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #009432;
 }
 
 /* Edit Mode */
 .todoItem.edit-mode .todoName, .todoItem.edit-mode .editBtn {
     display: none;
+    
 }
 
 .todoItem.edit-mode .editInput, .todoItem.edit-mode .saveBtn {
     display: inline-block;
+}
+.checkBox{
+   margin-left: 1.5rem;
+}
+
+@media(max-width: 600px) {
+       body{
+        height: auto;
+        margin-top: 6rem;
+       }
+       .container{
+        border: 0.25rem solid white;
+        box-shadow: 0.2rem 0.8rem 1rem  #dfe6e9;
+       }
+       .header{
+           border-bottom: 0.25rem solid white;
+       }
 }

@@ -4,25 +4,30 @@ const add = (ev) =>{
     let topic = {
         title: document.getElementById('createTaskInput').value
     }
+
     topics.push(topic);
     localStorage.setItem('TodoList', JSON.stringify(topics));
-    createTask();
-    
+    createTask(); 
 }
     document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('addBtn').addEventListener('click', add);
-    });
-
-
+        });
 
     var deleteTask = function() {
-        var parentEl = this.parentNode;
+        //! Edit 
+        let parentEl = this.parentNode;
         parentEl.parentNode.removeChild(parentEl);   //remove ul >> li
-        localStorage.clear(parentEl);
+        let value = localStorage.getItem('TodoList',JSON.stringify(topics));
+        let obj = JSON.parse(value);
+        var a =  obj.splice(obj.indexOf(1), 1);
+        //console.log(a);
+        localStorage.setItem("TodoList", JSON.stringify(obj));
+       
+    
     }
     var MaskAddDone = function () {
-        var parentEl = this.parentNode;
-        var pEl = parentEl.getElementsByClassName('todoName')[0];
+        let parentEl = this.parentNode;
+        let pEl = parentEl.getElementsByClassName('todoName')[0];
         // console.log(pEl);
         if (this.checked) {
             pEl.classList.add('done');
@@ -54,10 +59,11 @@ const add = (ev) =>{
     
 
 function createTask(){
-    var inputEl = document.getElementById('createTaskInput');
-    var todoName = inputEl.value.trim(); 
-
+    let inputEl = document.getElementById('createTaskInput');
+    let todoName = inputEl.value.trim(); 
+    
     if(todoName == ''){
+        alert("Please input put your Activities!");
         return;
     }
     var checkbox = document.createElement('input');
@@ -66,34 +72,34 @@ function createTask(){
     checkbox.onchange = MaskAddDone;
      
 
-    var p = document.createElement('p');
+    let p = document.createElement('p');
     p.classList.add('todoName');
     p.innerHTML = todoName;
 
-    var editInput = document.createElement('input');
+    let editInput = document.createElement('input');
     editInput.type = 'text';
     editInput.classList.add('editInput');
 
 
-    var editBtn = document.createElement('button');
+    let editBtn = document.createElement('button');
     editBtn.classList.add('editBtn');
     editBtn.innerHTML = 'Edit';
     editBtn.onclick = switchToEditMode;
     
 
-    var saveBtn = document.createElement('button');
+    let saveBtn = document.createElement('button');
     saveBtn.classList.add('saveBtn');
     saveBtn.innerHTML = 'Save';
     saveBtn.onclick = saveTask;
 
-    var deleteBtn = document.createElement('button');
+    let deleteBtn = document.createElement('button');
     deleteBtn.classList.add('deleteBtn');
     deleteBtn.innerHTML = 'Delete';
     deleteBtn.onclick = deleteTask;
    
 
 
-    var itemEl = document.createElement('li');
+    let itemEl = document.createElement('li');
     itemEl.classList.add('todoItem');
 
     itemEl.appendChild(checkbox);
@@ -104,7 +110,7 @@ function createTask(){
     itemEl.appendChild(deleteBtn);
 
 
-    var parentListEl = document.getElementById('List');
+    let parentListEl = document.getElementById('List');
     parentListEl.appendChild(itemEl);
 
     inputEl.value = '';

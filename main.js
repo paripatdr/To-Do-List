@@ -1,4 +1,5 @@
 let topics = [];
+const ul = document.querySelector('ul');
 const add = (ev) => {
     ev.preventDefault();
     let topic = {
@@ -10,9 +11,11 @@ const add = (ev) => {
 }
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('addBtn').addEventListener('click', add);
+    document.getElementById('clearAll').addEventListener('click',clearAll);
 });
 
-var deleteTask = function () {
+
+const deleteTask = function () {
     //! Edit 
     let parentEl = this.parentNode;
     parentEl.parentNode.removeChild(parentEl);   //remove ul >> li
@@ -22,7 +25,7 @@ var deleteTask = function () {
     //console.log(a);
     localStorage.setItem("TodoList", JSON.stringify(obj));
 }
-var MaskAddDone = function () {
+const MaskAddDone = function () {
     let parentEl = this.parentNode;
     let pEl = parentEl.getElementsByClassName('todoName')[0];
     // console.log(pEl);
@@ -32,14 +35,14 @@ var MaskAddDone = function () {
         pEl.classList.remove('done');
     }
 }
-var switchToEditMode = function () {
+const switchToEditMode = function () {
     var parentEl = this.parentNode;
     var pEl = parentEl.getElementsByClassName('todoName')[0];
     var inputEl = parentEl.getElementsByClassName('editInput')[0];
     inputEl.value = pEl.innerHTML;
     parentEl.classList.add('edit-mode');
 }
-var saveTask = function () {
+const saveTask = function () {
     var parentEl = this.parentNode;
     var pEl = parentEl.getElementsByClassName('todoName')[0];
     var inputEl = parentEl.getElementsByClassName('editInput')[0];
@@ -53,7 +56,13 @@ var saveTask = function () {
     //parentEl.classList.remove('edit-mode');
 
 }
-
+const clearAll = () =>{
+    localStorage.clear();
+    while (ul.firstChild){
+        ul.removeChild(ul.firstChild);
+    }    
+    topics = [];
+}
 
 function createTask() {
     let inputEl = document.getElementById('createTaskInput');
@@ -63,11 +72,11 @@ function createTask() {
         alert("Please input put your Activities!");
         return;
     }
-    var checkbox = document.createElement('input');
+
+    let checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.classList.add('checkBox');
     checkbox.onchange = MaskAddDone;
-
 
     let p = document.createElement('p');
     p.classList.add('todoName');
@@ -114,6 +123,9 @@ function createTask() {
 
 
 }
+
+
+
 
 
 

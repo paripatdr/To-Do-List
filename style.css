@@ -34,9 +34,7 @@ body {
      border-bottom: 0.4rem solid white;
      border-radius: 0.2rem;
  }
- .header h3{
-     
- }
+ 
 
  
 .todoList {
@@ -73,7 +71,8 @@ body {
 }
 
 .todoItem .todoName.done {
-    text-decoration:  line-through black;
+    text-decoration-line: line-through ;
+    color: #894c3e;
 }
 
 .todoItem button {
@@ -163,4 +162,5 @@ button#clearAll{
        .header{
            border-bottom: 0.25rem solid white;
        }
+       
 }

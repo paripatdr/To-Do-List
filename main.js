@@ -1,134 +1,135 @@
-let topics = [];
-const ul = document.querySelector('ul');
-const add = (ev) => {
-    ev.preventDefault();
-    let topic = {
-        title: document.getElementById('createTaskInput').value
+const listsContainer = document.querySelector('[data-lists]')
+const newListForm = document.querySelector('[data-new-list-form]')
+const newListInput = document.querySelector('[data-new-list-input]')
+const deleteListButton = document.querySelector('[data-delete-list-button]')
+const listDisplayContainer = document.querySelector('[data-list-display-container]')
+const listTitleElement = document.querySelector('[data-list-title]')
+const tasksContainer = document.querySelector('[data-tasks]')
+const taskTemplate = document.getElementById('task-template')
+const newTaskForm = document.querySelector('[data-new-task-form]')
+const newTaskInput = document.querySelector('[data-new-task-input]')
+const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]')
+
+
+
+const local_key = 'task.lists'
+const local_value = 'task.selectedListId'
+let lists = JSON.parse(localStorage.getItem(local_key)) || []
+let selectedListId = localStorage.getItem(local_value)
+
+listsContainer.addEventListener('click', e => {
+  if (e.target.tagName.toLowerCase() === 'li') {
+    selectedListId = e.target.dataset.listId
+    saveAndRender()
+  }
+})
+
+tasksContainer.addEventListener('click', e => {
+  if (e.target.tagName.toLowerCase() === 'input') {
+    const selectedList = lists.find(list => list.id === selectedListId)
+    const selectedTask = selectedList.tasks.find(task => task.id === e.target.id)
+    selectedTask.complete = e.target.checked
+    save()
+  }
+})
+
+clearCompleteTasksButton.addEventListener('click', e => {
+  const selectedList = lists.find(list => list.id === selectedListId)
+  selectedList.tasks = selectedList.tasks.filter(task => !task.complete)
+  saveAndRender()
+})
+
+deleteListButton.addEventListener('click', e => {
+  lists = lists.filter(list => list.id !== selectedListId)
+  selectedListId = null
+  saveAndRender()
+})
+
+newListForm.addEventListener('submit', e => {
+  e.preventDefault()
+  const listName = newListInput.value
+  if (listName == null || listName === '') return
+  const list = createList(listName)
+  newListInput.value = null
+  lists.push(list)
+  saveAndRender()
+})
+
+newTaskForm.addEventListener('submit', e => {
+  e.preventDefault()
+  const taskName = newTaskInput.value
+  if (taskName == null || taskName === '') return
+  const task = createTask(taskName)
+  newTaskInput.value = null
+  const selectedList = lists.find(list => list.id === selectedListId)
+  selectedList.tasks.push(task)
+  saveAndRender()
+})
+
+function createList(name) {
+  return { id: Date.now().toString(), name: name, tasks: [] }
+}
+
+function createTask(name) {
+  return { id: Date.now().toString(), name: name, complete: false }
+}
+
+function saveAndRender() {
+  save()
+  render()
+}
+
+function save() {
+  localStorage.setItem(local_key, JSON.stringify(lists))
+  localStorage.setItem(local_value, selectedListId)
+}
+
+function render() {
+  clearElement(listsContainer)
+  renderLists()
+
+
+  const selectedList = lists.find(list => list.id === selectedListId)
+  if (selectedListId == null) {
+    listDisplayContainer.style.display = 'none'
+  } else {
+    listDisplayContainer.style.display = ''
+    listTitleElement.innerText = selectedList.name
+    clearElement(tasksContainer)
+    renderTasks(selectedList)
+  }
+}
+
+function renderTasks(selectedList) {
+  selectedList.tasks.forEach(task => {
+    const taskElement = document.importNode(taskTemplate.content, true)
+    const checkbox = taskElement.querySelector('input')
+    checkbox.id = task.id
+    checkbox.checked = task.complete
+    const label = taskElement.querySelector('label')
+    label.htmlFor = task.id
+    label.append(task.name)
+    tasksContainer.appendChild(taskElement)
+  })
+}
+
+function renderLists() {
+  lists.forEach(list => {
+    const listElement = document.createElement('li')
+    listElement.dataset.listId = list.id
+    listElement.classList.add("list-name")
+    listElement.innerText = list.name
+    if (list.id === selectedListId) {
+      listElement.classList.add('active-list')
     }
-    topics.push(topic);
-    localStorage.setItem('TodoList', JSON.stringify(topics));
-    createTask();
-}
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('addBtn').addEventListener('click', add);
-    document.getElementById('clearAll').addEventListener('click',clearAll);
-});
-
-
-const deleteTask = function () {
-    //! Edit 
-    let parentEl = this.parentNode;
-    parentEl.parentNode.removeChild(parentEl);   //remove ul >> li
-    let value = localStorage.getItem('TodoList', JSON.stringify(topics));
-    let obj = JSON.parse(value);
-    var a = obj.splice(obj.indexOf(1), 1);
-    //console.log(a);
-    localStorage.setItem("TodoList", JSON.stringify(obj));
-}
-const MaskAddDone = function () {
-    let parentEl = this.parentNode;
-    let pEl = parentEl.getElementsByClassName('todoName')[0];
-    // console.log(pEl);
-    if (this.checked) {
-        pEl.classList.add('done');
-    } else {
-        pEl.classList.remove('done');
-    }
-}
-const switchToEditMode = function () {
-    var parentEl = this.parentNode;
-    var pEl = parentEl.getElementsByClassName('todoName')[0];
-    var inputEl = parentEl.getElementsByClassName('editInput')[0];
-    inputEl.value = pEl.innerHTML;
-    parentEl.classList.add('edit-mode');
-}
-const saveTask = function () {
-    var parentEl = this.parentNode;
-    var pEl = parentEl.getElementsByClassName('todoName')[0];
-    var inputEl = parentEl.getElementsByClassName('editInput')[0];
-
-    parentEl.classList.remove('edit-mode');
-    if (inputEl.value.trim() == '') {
-        return;
-    }
-
-    pEl.innerHTML = inputEl.value.trim();
-    //parentEl.classList.remove('edit-mode');
-
-}
-const clearAll = () =>{
-    localStorage.clear();
-    while (ul.firstChild){
-        ul.removeChild(ul.firstChild);
-    }    
-    topics = [];
+    listsContainer.appendChild(listElement)
+  })
 }
 
-function createTask() {
-    let inputEl = document.getElementById('createTaskInput');
-    let todoName = inputEl.value.trim();
-
-    if (todoName == '') {
-        alert("Please input put your Activities!");
-        return;
-    }
-
-    let checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('checkBox');
-    checkbox.onchange = MaskAddDone;
-
-    let p = document.createElement('p');
-    p.classList.add('todoName');
-    p.innerHTML = todoName;
-
-    let editInput = document.createElement('input');
-    editInput.type = 'text';
-    editInput.classList.add('editInput');
-
-
-    let editBtn = document.createElement('button');
-    editBtn.classList.add('editBtn');
-    editBtn.innerHTML = 'Edit';
-    editBtn.onclick = switchToEditMode;
-
-
-    let saveBtn = document.createElement('button');
-    saveBtn.classList.add('saveBtn');
-    saveBtn.innerHTML = 'Save';
-    saveBtn.onclick = saveTask;
-
-    let deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('deleteBtn');
-    deleteBtn.innerHTML = 'Delete';
-    deleteBtn.onclick = deleteTask;
-
-
-
-    let itemEl = document.createElement('li');
-    itemEl.classList.add('todoItem');
-
-    itemEl.appendChild(checkbox);
-    itemEl.appendChild(p);
-    itemEl.appendChild(editInput);
-    itemEl.appendChild(editBtn);
-    itemEl.appendChild(saveBtn);
-    itemEl.appendChild(deleteBtn);
-
-
-    let parentListEl = document.getElementById('List');
-    parentListEl.appendChild(itemEl);
-
-    inputEl.value = '';
-
-
+function clearElement(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild)
+  }
 }
-
-
-
-
-
-
-
-
-
+//hidden new task
+render()

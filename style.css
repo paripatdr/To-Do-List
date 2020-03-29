@@ -1,90 +1,112 @@
-body {
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+body{
     background: radial-gradient(ellipse farthest-corner at center top, #e3a377 40% ,#894c3e  80%);
+    height: auto;
     font-family: sans-serif;
 }
-.container {
-    display: flex;
-    width: 60rem;
-    flex-direction: column;
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    border: 0.4rem solid white;
-    box-shadow: 0.2rem 0.2rem 0.5rem  #dfe6e9;
-    border-radius: 0.5rem;
-}
-
-.container h3{
-    text-shadow: black 0.1em 0.5em 0.4em;
-    margin-left: 0.8rem;
-    color: white;
+.container{
+    max-width: 80rem;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 32rem auto;
+    grid-template-areas: 
+    "header header"
+    "section aside";
+    grid-gap: 2.5rem 2.5rem;
 }
 .header{
-    display: flex;
-    font-size: 2.8rem;
-    height: 18rem;
+    grid-area: header;
+    font-size: 3rem;
+    color: white;
     background-image: url(img/table1.jpg);
-    background-repeat: no-repeat;
     background-size: cover;
-    border-bottom: 0.4rem solid white;
-    border-radius: 0.2rem;
+    background-repeat: no-repeat;
+    border: 0.8rem solid white;
+    box-shadow: 10px 10px 10px 10px #894c3e;
+    border-radius: 0.5rem;
+
+    
 }
-.all-tasks{
-    text-align: center;
+.header h3{
+    margin-left: 2.5rem;
     text-shadow: black 0.1em 0.5em 0.4em;
+}
+.section{
+    grid-area: section;
+    border: 0.8rem solid white;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 10px 10px 10px 10px #894c3e;
+    border-radius: 0.5rem;
+    padding-bottom: 2rem;
+
 
 }
+.aside{
+    grid-area: aside;
+    border: 0.8rem solid white;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 10px 10px 10px 10px #894c3e;
+    border-radius: 0.5rem;
+    padding-bottom: 2rem;
+
+    
+}
+.all-tasks{
+    text-shadow: black 0.1em 0.5em 0.4em;
+    margin-left: 1rem;
+}
+.all-tasks ul{
+    cursor: pointer;
+    text-decoration: underline;
+ }
+
 .all-tasks button , .new-task-creator button{
     border-radius: 2rem;
-    width: 3.5rem;
-    height: 2.5rem;
+    width: 4rem;
+    height: 2.7rem;
     background-color: #009432;
     cursor: pointer;
     color: white;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1rem;
+    margin-top: 2rem;
+}
+.all-tasks button:hover, .delTaskBtn:hover , .delAllBtn:hover{
+    opacity: 0.5;
 }
 
-.all-tasks ul{
-   cursor: pointer;
-   text-decoration: underline;
-   list-style-type: none;
-}
 .all-tasks input , .new-task-creator input{
     font-size: 1rem;
     padding: 0.8rem;
     width: 20rem;
+    height: 1.4rem;
     margin-right: 1rem;
     border-radius: 0.5rem;
     border: 1px solid #d8d8d8;
 }
+
 .todo-header{
    font-size: 2rem;
    text-align: center;
 }
-
-.todo-list{
-    font-size: 1.8rem;
-}
-h2.list-title{
-    color: white;
-}
 .delTaskBtn{
-   padding: 0.5rem;
-   font-size: 1rem;
-   font-weight: bold;
-   background-color: #ff793f;
-   cursor: pointer;
-   color: white;
-   text-transform: uppercase;
-   border-radius: 1rem;
-}
-.delAllBtn{
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ff793f;
+    cursor: pointer;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 1rem;
+ }
+ .delAllBtn{
     padding: 0.5rem;
     font-size: 1rem;
     font-weight: bold;
@@ -100,23 +122,33 @@ h2.list-title{
 .delete-stuff{
     text-align: center;
 }
-div.task{
-     margin-left: 5rem;
-     margin-bottom: 1rem;
+.todo-list {
+    margin-left: 2rem;
+    font-size: 2rem;
 }
+.aside h3{
+    margin-left: 2rem;
+    text-shadow: black 0.1em 0.5em 0.4em;
 
-
+}
 @media(max-width: 600px) {
-    body{
-     height: auto;
-     margin-top: 6rem;
+      
+      .container{
+        grid-template-columns: 1fr ;
+        grid-template-rows: 20rem auto;
+        grid-template-areas: 
+        "header header"
+        "section section"
+        "aside aside";
+        margin: 0;
+      }
+      .all-tasks input , .new-task-creator input{
+        font-size: 1rem;
+        padding: 0.5rem;
+        width: 18rem;
+        height: 1.4rem;
+        border-radius: 0.5rem;
+        border: 1px solid #d8d8d8;
     }
-    .container{
-     border: 0.25rem solid white;
-     box-shadow: 0.2rem 0.8rem 1rem  #dfe6e9;
-     width: 40rem;
-    }
-    .header{
-        border-bottom: 0.25rem solid white;
-    }
+    
 }

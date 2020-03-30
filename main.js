@@ -87,8 +87,6 @@ function save() {
 function render() {
   clearElement(listsContainer)
   renderLists()
-
-
   const selectedList = lists.find(list => list.id === selectedListId)
   if (selectedListId == null) {
     listDisplayContainer.style.display = 'none'
@@ -113,6 +111,7 @@ function renderTasks(selectedList) {
   })
 }
 
+//render Array list 
 function renderLists() {
   lists.forEach(list => {
     const listElement = document.createElement('li')
@@ -126,10 +125,10 @@ function renderLists() {
   })
 }
 
+//delete All firstChild
 function clearElement(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
   }
 }
-//hidden new task
 render()
